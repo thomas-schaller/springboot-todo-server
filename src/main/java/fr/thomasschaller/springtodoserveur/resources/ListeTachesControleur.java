@@ -5,7 +5,6 @@ import fr.thomasschaller.springtodoserveur.domaine.Utilisateur;
 import fr.thomasschaller.springtodoserveur.domaine.repository.ListeTacheRepository;
 import fr.thomasschaller.springtodoserveur.domaine.repository.TacheRepository;
 import fr.thomasschaller.springtodoserveur.domaine.repository.UtilisateurRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path="/taches")
+@CrossOrigin(origins = "http://localhost:4200")
 public class ListeTachesControleur {
 
     private UtilisateurRepository depotUtilisateurs;
@@ -71,4 +71,10 @@ public class ListeTachesControleur {
         return liste;
     }
 
+    @DeleteMapping
+    public void suppressionListeTache(Principal compte,@PathVariable Long id)
+    {
+        ListeTache listeASpprimer =recupererListeTache(compte,id);
+        depotListesTaches.delete(listeASpprimer);
+    }
 }

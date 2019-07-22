@@ -11,9 +11,9 @@ import java.util.List;
 
 public class AccountPrincipal implements UserDetails {
 
-    Utilisateur compte;
+    private Utilisateur compte;
 
-    public AccountPrincipal(Utilisateur a)
+    AccountPrincipal(Utilisateur a)
     {
         this.compte=a;
     }

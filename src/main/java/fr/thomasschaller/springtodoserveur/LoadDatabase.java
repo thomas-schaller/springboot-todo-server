@@ -22,11 +22,8 @@ import java.util.Date;
 public class LoadDatabase {
 
 
-    @Autowired
-    PasswordEncoder passwordEncoder;
-
     @Bean
-    CommandLineRunner initDatabase(UtilisateurRepository depotUtilisateur, ListeTacheRepository depotListeTache, TacheRepository depotTache)   {
+    CommandLineRunner initDatabase(UtilisateurRepository depotUtilisateur, ListeTacheRepository depotListeTache, TacheRepository depotTache, PasswordEncoder passwordEncoder)   {
         return args -> {
             Calendar c= Calendar.getInstance();
             Utilisateur utilisateur = new Utilisateur();
@@ -92,7 +89,7 @@ public class LoadDatabase {
             listeDeTache.getaRealiser().add(task);
             depotListeTache.save(listeDeTache);
             log.info(utilisateur.getNom()+ ": "+utilisateur.getPossede().toString());
-            log.info("Preloading " + depotUtilisateur.save(utilisateur));
+            depotUtilisateur.save(utilisateur);
 
             utilisateur = new Utilisateur();
             utilisateur.setNom("david");
@@ -111,7 +108,7 @@ public class LoadDatabase {
             depotListeTache.save(listeDeTache);
 
             log.info(utilisateur.getNom()+ ": "+utilisateur.getPossede().toString());
-            log.info("Preloading " + depotUtilisateur.save(utilisateur));
+            depotUtilisateur.save(utilisateur);
         };
     }
 }

@@ -20,8 +20,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
         http
+                .csrf().disable()
                 .httpBasic().realmName("thomasschaller").and()
-                .authorizeRequests().anyRequest().authenticated();
+                .authorizeRequests()
+                .antMatchers("/utilisateurs*/**").permitAll()
+                .anyRequest().authenticated()
+        ;
 
 
     }
